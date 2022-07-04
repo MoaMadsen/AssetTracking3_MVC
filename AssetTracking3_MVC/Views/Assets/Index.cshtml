@@ -1,0 +1,23 @@
+﻿@*
+    This page is for maintain AssetItem Data
+*@
+@{
+}
+<h1>Asset Tracking Menu</h1>
+<br />
+
+<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+  <a class="btn btn-primary" asp-action="IndexCategory">Category data</a>
+  <a class="btn btn-primary" asp-action="IndexAsset">Asset Data</a>
+
+  <div class="btn-group" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Display Asset Data
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <li><a class="dropdown-item" asp-controller="DisplayAssets" asp-action="Index">List by purchase date</a></li>
+      <li><a class="dropdown-item" href="#">list by category</a></li>
+      <li><a class="dropdown-item" href="#">list by office</a></li>
+      <li><a class="dropdown-item" href="#">list by end of life date</a></li>
+    </ul>
+  </div>
+</div>

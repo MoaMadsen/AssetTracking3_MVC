@@ -1,0 +1,54 @@
+﻿@model Office
+@*
+    This page is for creating Office
+*@
+@{
+    ViewData["Title"] = "Create New Office";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="CreateOffice">
+    <div class="border p-5">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Record Your Office</h2>
+        </div>
+        <br />
+
+        <div class=row>
+               <div class="col-4">
+                    <label asp-for="Country"></label>
+                    <input asp-for="Country" class="form-control" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+               </div>  
+        </div>
+        <br />
+        <div class=row>
+               <div class="col-4">
+                    <label asp-for="Currency"></label>
+@*                    <input asp-for="Currency" class="form-control oninput="this.value = this.value.toUpperCase()" />
+*@ 
+                    <input asp-for="Currency" class="form-control text-uppercase" />
+                    <span asp-validation-for="Currency" class="text-danger"></span>
+               </div>  
+        </div>
+        <br />
+        <div class=row>
+               <div class="col-4">
+                    <label asp-for="Rate"></label>
+                    <input asp-for="Rate" class="form-control" />
+                    <span asp-validation-for="Rate" class="text-danger"></span>
+               </div>
+         </div>
+        <br />
+
+        <div class="w-12 btn-group" role="group">
+                <input type="submit"class="btn btn-primary mx-1" value="Save" />
+                <a asp-action="Index" class="btn btn-danger mx-1">Back</a>
+        </div>
+    </div>
+  @*<input type="text" name="country" />
+    <input type="text" name="currency"/>
+    <input type="number" name="rate" />
+    <input type="submit" value="Create" /> *@
+</form>
