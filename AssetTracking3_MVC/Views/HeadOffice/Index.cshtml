@@ -30,14 +30,14 @@
     <tbody>
         @foreach(var item in Model){
             <tr>
-                <td width="10%">@item.Id</td>
+
                 <td width="20%">@item.Country</td>
-                <td width="10%">@item.Currency</td>
+                <td width="20%">@item.Currency</td>
                 <td width="10%">@item.Rate</td>
-                <td width="30%">
+                <td width="20%">
                     <div class="w-100 bth-group" role="group">
-                        <a asp-controller="HeadOffice" asp-action="UpdateOffice" app-route-id ="@item.Id" class="btn btn-primary">Update</a>
-                        <a asp-controller="HeadOffice" asp-action="DeleteOffice" app-route-id ="@item.Id" class="btn btn-danger">Delete</a>
+                        <a asp-controller="HeadOffice" asp-action="UpdateOffice" asp-route-id="@item.Id" class="btn btn-primary">Update</a>
+                        <a asp-controller="HeadOffice" asp-action="DeleteOffice" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
 
                     </div>
                 </td>

@@ -30,6 +30,35 @@ namespace AssetTracking3_MVC.Controllers
             Context.SaveChanges();
             return RedirectToAction("IndexCategory");
         }
+        public IActionResult UpdateCategory(int? id)
+        {
+            Category Category = Context.Categories.FirstOrDefault(c => c.Id == id);
+            return View(Category);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateCategory(int id, string description)
+        {
+            Category Category = Context.Categories.FirstOrDefault(c => c.Id == id);
+            Category.Description = description;
+            Context.SaveChanges();
+            return RedirectToAction("IndexCategory");
+        }
+        public IActionResult DeleteCategory(int? id)
+        {
+            //           System.Diagnostics.Debug.WriteLine(id);
+            Category Category = Context.Categories.FirstOrDefault(c => c.Id == id);
+            return View(Category);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteOffice(int id)
+        {
+            Category Category = Context.Categories.FirstOrDefault(c => c.Id == id);
+            Context.Remove(Category);
+            Context.SaveChanges();
+            return RedirectToAction("IndexCategory");
+        }
         public IActionResult IndexCategory()
         {
             var CategoryList = Context.Categories.ToList();

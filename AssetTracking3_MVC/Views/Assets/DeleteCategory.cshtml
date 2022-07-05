@@ -1,7 +1,34 @@
 ﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+    This page is for Delete Category row
 *@
+@model Category
 @{
 }
+@{
+    ViewData["Title"] = "Delete Category";
+}
 
-<h1>Delete Category</h1>
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="DeleteCategory">
+    <div class="border p-5">
+        <div class="form-group row">
+            <h2 class="text-black-50 pl-3">Category</h2>
+        </div>
+        <br />
+
+        <div class=row>
+               <div class="col-4">
+                    <label asp-for="Description"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+               </div>  
+        </div>
+        <br />
+
+        <div class="w-12 btn-group" role="group">
+                <input type="submit"class="btn btn-primary mx-1" value="Delete" />
+                <a asp-action="IndexCategory" class="btn btn-danger mx-1">Back</a>
+        </div>
+    </div>
+</form>

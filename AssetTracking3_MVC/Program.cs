@@ -1,6 +1,7 @@
 using AssetTracking3_MVC.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 // var connectionString = builder.Configuration.GetConnectionString("ApplicationDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
@@ -21,6 +22,17 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddRoles<IdentityRole>()   
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+// Display the name of the current culture.
+Console.WriteLine("CurrentCulture is {0}.", CultureInfo.CurrentCulture.Name);
+// Change the current culture to th-TH.
+CultureInfo.CurrentCulture = new CultureInfo("en-US", false);
+Console.WriteLine("CurrentCulture is now {0}.", CultureInfo.CurrentCulture.Name);
+// Display the name of the current UI culture.
+Console.WriteLine("CurrentUICulture is {0}.", CultureInfo.CurrentUICulture.Name);
+// Change the current UI culture to ja-JP.
+CultureInfo.CurrentUICulture = new CultureInfo("en-US", false);
+Console.WriteLine("CurrentUICulture is now {0}.", CultureInfo.CurrentUICulture.Name);
 
 var app = builder.Build();
 
