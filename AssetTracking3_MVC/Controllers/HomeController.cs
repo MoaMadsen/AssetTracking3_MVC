@@ -12,7 +12,6 @@ namespace AssetTracking3_MVC.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();

@@ -17,7 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 /* Moa 2nd change builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString)); */
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-// Moa --- options.SignIn.RequireConfirmedAccount = true change to false
+// Moa --- options.SignIn.RequireConfirmedAccount = true.. This checking valid email address
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()   
     .AddEntityFrameworkStores<ApplicationDbContext>();

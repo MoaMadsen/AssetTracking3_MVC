@@ -1,24 +1,24 @@
 ﻿@model AssetItem
 @*
-    This page is for creating Asset item
+    This page is for Editing Asset item
 *@
 @{
-    ViewData["Title"] = "Create New Asset";
+    ViewData["Title"] = "Update Asset Item Data";
 }
 
 <h1>@ViewData["Title"]</h1>
 
-<form asp-action="CreateAsset">
+<form asp-action="UpdateAsset">
     <div class="border p-5">
         <div class="form-group row">
-            <h2 class="text-black-50 pl-3">Enter a new Item of Asset</h2>
+            <h2 class="text-black-50 pl-3">Update Detail of Asset</h2>
         </div>
         <br />
 
         <div class=row>
             <div class="col-4">
-               <label asp-for="Office"></label>
-               <select asp-for="OfficeId" name="officeid" asp-items="ViewBag.OfficeId"></select>
+                <label asp-for="Office"></label>
+                <select asp-for="OfficeId" name="officeid" asp-items="ViewBag.OfficeId"></select>
             </div>
         </div>
         <br />
@@ -61,31 +61,22 @@
         <div class="row">
             <div class="col-4">
                 <label asp-for="PurchaseDate"></label>
-@*                <input asp-for="PurchaseDate" id="pdate" type="date" class="form-control" oninput="EndingDate()"/>
-*@                <input asp-for="PurchaseDate" id="pdate" type="date" class="form-control"/>
+                <input asp-for="PurchaseDate" type="date" class="form-control"/>
             </div>
         </div>
         <br />
 
- @*       <div class="row">
+       <div class="row">
             <div class="col-4">
                 <label asp-for="EndOfLife"></label>
-                <input asp-for="EndOfLife" type="date" id="edate" class="form-control" />
+                <input asp-for="EndOfLife" type="date" name="enddate" class="form-control")" />
             </div>
         </div>
-        <br />*@
+        <br />
+
         <div class="w-12 btn-group" role="group">
-                <input type="submit"class="btn btn-primary mx-1" value="Save" />
+                <input type="submit"class="btn btn-primary mx-1" value="Update" />
                 <a asp-action="IndexAsset" class="btn btn-danger mx-1">Back</a>
         </div>
     </div>
 </form>
-
-@*<script>
-function EndingDate()
-{
-    var d = document.getElementById("pdate").value;
-    document.getElementById("edate").value = d; 
-}
-
-</script>*@

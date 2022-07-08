@@ -1,5 +1,6 @@
 ﻿using AssetTracking3_MVC.Data;
 using AssetTracking3_MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,6 +13,7 @@ namespace AssetTracking3_MVC.Controllers
         {
             Context = c;
         }
+        [Authorize(Roles ="USA")]
         public IActionResult Index()
         {
             var OfficeList = Context.Offices.ToList();

@@ -2,6 +2,9 @@
 using AssetTracking3_MVC.Models;
 using AssetTracking3_MVC.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace AssetTracking3_MVC.Controllers
 {
@@ -12,6 +15,7 @@ namespace AssetTracking3_MVC.Controllers
         {
             Context = c;
         }
+        [Authorize]
         public IActionResult Index()
         {
             return View();
@@ -44,6 +48,7 @@ namespace AssetTracking3_MVC.Controllers
             Context.SaveChanges();
             return RedirectToAction("IndexCategory");
         }
+        [Authorize(Roles ="USA")]
         public IActionResult DeleteCategory(int? id)
         {
             //           System.Diagnostics.Debug.WriteLine(id);
@@ -52,7 +57,7 @@ namespace AssetTracking3_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult DeleteOffice(int id)
+        public IActionResult DeleteCategory(int id)
         {
             Category Category = Context.Categories.FirstOrDefault(c => c.Id == id);
             Context.Remove(Category);
@@ -66,10 +71,12 @@ namespace AssetTracking3_MVC.Controllers
         }
         public IActionResult CreateAsset()
         {
+            ViewData["OfficeId"] = new SelectList(Context.Offices, "Id", "Country");
+            ViewData["CategoryId"] = new SelectList(Context.Categories, "Id", "Description");
             return View();
         }
         [HttpPost]
-        public IActionResult CreateAsset(int categoryid, int officeId, string brand, string model, double price, DateTime purchasedate, DateTime enddate)
+        public IActionResult CreateAsset(int categoryid, int officeId, string brand, string model, double price, DateTime purchasedate)
         {
             AssetItem Asset = new();
             Asset.CategoryId = categoryid;
@@ -78,15 +85,57 @@ namespace AssetTracking3_MVC.Controllers
             Asset.Model = model;
             Asset.Price = price;
             Asset.PurchaseDate = purchasedate;
-            Asset.EndOfLife = enddate;
+            Asset.EndOfLife = purchasedate.AddYears(3);
             Context.Assetitems.Add(Asset);
             Context.SaveChanges();
             return RedirectToAction("IndexAsset");
         }
         public IActionResult IndexAsset()
         {
-            var AssetList = Context.Assetitems.Include(x => x.Office).Include(x => x.Category).ToList();
+            List<AssetItem> AssetList = Context.Assetitems.Include(x => x.Office).Include(x => x.Category).ToList();
+ 
+            AssetList = AssetList.OrderByDescending(x => x.Id).ToList();
             return View(AssetList);
+        }
+
+        public IActionResult UpdateAsset(int? id)
+        {
+            ViewData["OfficeId"] = new SelectList(Context.Offices, "Id", "Country");
+            ViewData["CategoryId"] = new SelectList(Context.Categories, "Id", "Description");
+            AssetItem Asset = Context.Assetitems.FirstOrDefault(a => a.Id == id);
+            return View(Asset);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateAsset(int id, int categoryid, int officeId, string brand, string model, double price, DateTime purchasedate, DateTime enddate)
+        {
+            AssetItem Asset = Context.Assetitems.Include(x => x.Office).Include(x => x.Category).FirstOrDefault(a => a.Id == id);
+            Asset.CategoryId = categoryid;
+            Asset.OfficeId = officeId;
+            Asset.Brand = brand;
+            Asset.Model = model;
+            Asset.Price = price;
+            Asset.PurchaseDate = purchasedate;
+            Asset.EndOfLife = enddate; 
+            Context.SaveChanges();
+            return RedirectToAction("IndexAsset");
+        }
+        public IActionResult DeleteAsset(int? id)
+        {
+            //           System.Diagnostics.Debug.WriteLine(id);
+            //ViewData["OfficeId"] = new SelectList(Context.Offices, "Id", "Country");
+            //ViewData["CategoryId"] = new SelectList(Context.Categories, "Id", "Description");
+            AssetItem Asset = Context.Assetitems.Include(x => x.Office).Include(x => x.Category).FirstOrDefault(a => a.Id == id);
+            return View(Asset);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteAsset(int id)
+        {
+            AssetItem Asset = Context.Assetitems.FirstOrDefault(a => a.Id == id);
+            Context.Remove(Asset);
+            Context.SaveChanges();
+            return RedirectToAction("IndexAsset");
         }
     }
 }
